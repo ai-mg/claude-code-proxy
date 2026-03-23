@@ -42,11 +42,13 @@ The `.env` file is pre-configured. It loads `MEINGPT_API_KEY` from your global e
 OPENAI_API_KEY=${MEINGPT_API_KEY}
 OPENAI_BASE_URL="https://app.meingpt.com/api/openai/v1"
 PREFERRED_PROVIDER="openai"
-BIG_MODEL="claude-sonnet-4-6"
-SMALL_MODEL="gpt-5-2"
+BIG_MODEL="claude-opus-4-6"
+SMALL_MODEL="claude-sonnet-4-5"
 ```
 
 To change which models Claude Code uses, edit `BIG_MODEL` and `SMALL_MODEL` in `.env`.
+
+> **Important:** Claude Code's system prompts and tool protocols are designed for Claude models. Non-Claude models (GPT, Gemini, etc.) may fail with skill loops, refusals, or broken tool use. Stick to Claude models for reliable operation.
 
 ### 3. Install dependencies and start the proxy
 
@@ -70,8 +72,8 @@ When Claude Code sends a request, the proxy maps models as follows:
 | Claude Code Request | Maps To | Description |
 |---|---|---|
 | Any model with "opus" | `claude-opus-4-6` (passthrough) | Opus maps directly to itself |
-| Any model with "sonnet" | `BIG_MODEL` (default: `claude-sonnet-4-6`) | Primary model for complex tasks |
-| Any model with "haiku" | `SMALL_MODEL` (default: `gpt-5-2`) | Fast model for simple tasks |
+| Any model with "sonnet" | `BIG_MODEL` (default: `claude-opus-4-6`) | Primary model for complex tasks |
+| Any model with "haiku" | `SMALL_MODEL` (default: `claude-sonnet-4-5`) | Fast model for quick answers |
 
 ### Available MeinGPT Models
 
@@ -98,8 +100,8 @@ All configuration is done via the `.env` file:
 | `OPENAI_API_KEY` | MeinGPT API key (loaded from `$MEINGPT_API_KEY`) | — |
 | `OPENAI_BASE_URL` | MeinGPT API endpoint | `https://app.meingpt.com/api/openai/v1` |
 | `PREFERRED_PROVIDER` | Provider routing for LiteLLM | `openai` |
-| `BIG_MODEL` | Model for sonnet/complex requests | `claude-sonnet-4-6` |
-| `SMALL_MODEL` | Model for haiku/fast requests | `gpt-5-2` |
+| `BIG_MODEL` | Model for sonnet/complex requests | `claude-opus-4-6` |
+| `SMALL_MODEL` | Model for haiku/fast requests | `claude-sonnet-4-5` |
 
 ## Troubleshooting
 

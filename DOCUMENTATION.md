@@ -150,6 +150,7 @@ The Pydantic `field_validator` on the `model` field (`server.py:200-264`) handle
 
 1. Claude Code sends model names like `claude-sonnet-4-6` or `claude-haiku-4-5-20251001`
 2. The validator detects keywords:
+   - `"opus"` in name → maps to `openai/claude-opus-4-6` (passthrough)
    - `"sonnet"` in name → maps to `openai/{BIG_MODEL}`
    - `"haiku"` in name → maps to `openai/{SMALL_MODEL}`
 3. LiteLLM uses the `openai/` prefix to route to the OpenAI provider
@@ -165,8 +166,8 @@ Models must be in `OPENAI_MODELS` or `GEMINI_MODELS` lists (`server.py:104-137`)
 | Claude Code Sends | Proxy Maps To | MeinGPT Receives |
 |---|---|---|
 | `claude-opus-4-6` | `openai/claude-opus-4-6` | `claude-opus-4-6` (passthrough) |
-| `claude-sonnet-4-6` | `openai/claude-sonnet-4-6` | `claude-sonnet-4-6` (via BIG_MODEL) |
-| `claude-haiku-4-5-20251001` | `openai/gpt-5-2` | `gpt-5-2` (via SMALL_MODEL) |
+| `claude-sonnet-4-6` | `openai/claude-opus-4-6` | `claude-opus-4-6` (via BIG_MODEL) |
+| `claude-haiku-4-5-20251001` | `openai/claude-sonnet-4-5` | `claude-sonnet-4-5` (via SMALL_MODEL) |
 
 ---
 
@@ -256,8 +257,8 @@ Tool results in user messages (Anthropic `tool_result` blocks) are extracted and
 | `OPENAI_API_KEY` | Auto | Set to `${MEINGPT_API_KEY}` in `.env` | — |
 | `OPENAI_BASE_URL` | Yes | MeinGPT endpoint | `https://app.meingpt.com/api/openai/v1` |
 | `PREFERRED_PROVIDER` | No | LiteLLM provider routing | `openai` |
-| `BIG_MODEL` | No | Model for sonnet/complex requests | `claude-sonnet-4-6` |
-| `SMALL_MODEL` | No | Model for haiku/fast requests | `gpt-5-2` |
+| `BIG_MODEL` | No | Model for sonnet/complex requests | `claude-opus-4-6` |
+| `SMALL_MODEL` | No | Model for haiku/fast requests | `claude-sonnet-4-5` |
 
 ### Important Notes
 
@@ -371,7 +372,7 @@ This ensures the model validator adds the correct `openai/` or `gemini/` prefix 
 
 Edit `.env`:
 ```env
-BIG_MODEL="gpt-5-4"        # For sonnet requests
+BIG_MODEL="claude-opus-4-6"        # For sonnet requests
 SMALL_MODEL="gemini-2.5-flash"  # For haiku requests
 ```
 
