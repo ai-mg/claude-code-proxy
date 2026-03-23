@@ -42,7 +42,7 @@ The `.env` file is pre-configured. It loads `MEINGPT_API_KEY` from your global e
 OPENAI_API_KEY=${MEINGPT_API_KEY}
 OPENAI_BASE_URL="https://app.meingpt.com/api/openai/v1"
 PREFERRED_PROVIDER="openai"
-BIG_MODEL="claude-opus-4-6"
+BIG_MODEL="claude-sonnet-4-6"
 SMALL_MODEL="gpt-5-2"
 ```
 
@@ -69,7 +69,8 @@ When Claude Code sends a request, the proxy maps models as follows:
 
 | Claude Code Request | Maps To | Description |
 |---|---|---|
-| Any model with "sonnet" | `BIG_MODEL` (default: `claude-opus-4-6`) | Primary model for complex tasks |
+| Any model with "opus" | `claude-opus-4-6` (passthrough) | Opus maps directly to itself |
+| Any model with "sonnet" | `BIG_MODEL` (default: `claude-sonnet-4-6`) | Primary model for complex tasks |
 | Any model with "haiku" | `SMALL_MODEL` (default: `gpt-5-2`) | Fast model for simple tasks |
 
 ### Available MeinGPT Models
@@ -97,7 +98,7 @@ All configuration is done via the `.env` file:
 | `OPENAI_API_KEY` | MeinGPT API key (loaded from `$MEINGPT_API_KEY`) | — |
 | `OPENAI_BASE_URL` | MeinGPT API endpoint | `https://app.meingpt.com/api/openai/v1` |
 | `PREFERRED_PROVIDER` | Provider routing for LiteLLM | `openai` |
-| `BIG_MODEL` | Model for sonnet/complex requests | `claude-opus-4-6` |
+| `BIG_MODEL` | Model for sonnet/complex requests | `claude-sonnet-4-6` |
 | `SMALL_MODEL` | Model for haiku/fast requests | `gpt-5-2` |
 
 ## Troubleshooting

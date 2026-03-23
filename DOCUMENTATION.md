@@ -164,8 +164,9 @@ Models must be in `OPENAI_MODELS` or `GEMINI_MODELS` lists (`server.py:104-137`)
 
 | Claude Code Sends | Proxy Maps To | MeinGPT Receives |
 |---|---|---|
-| `claude-sonnet-4-6` | `openai/claude-opus-4-6` | `claude-opus-4-6` |
-| `claude-haiku-4-5-20251001` | `openai/gpt-5-2` | `gpt-5-2` |
+| `claude-opus-4-6` | `openai/claude-opus-4-6` | `claude-opus-4-6` (passthrough) |
+| `claude-sonnet-4-6` | `openai/claude-sonnet-4-6` | `claude-sonnet-4-6` (via BIG_MODEL) |
+| `claude-haiku-4-5-20251001` | `openai/gpt-5-2` | `gpt-5-2` (via SMALL_MODEL) |
 
 ---
 
@@ -255,7 +256,7 @@ Tool results in user messages (Anthropic `tool_result` blocks) are extracted and
 | `OPENAI_API_KEY` | Auto | Set to `${MEINGPT_API_KEY}` in `.env` | — |
 | `OPENAI_BASE_URL` | Yes | MeinGPT endpoint | `https://app.meingpt.com/api/openai/v1` |
 | `PREFERRED_PROVIDER` | No | LiteLLM provider routing | `openai` |
-| `BIG_MODEL` | No | Model for sonnet/complex requests | `claude-opus-4-6` |
+| `BIG_MODEL` | No | Model for sonnet/complex requests | `claude-sonnet-4-6` |
 | `SMALL_MODEL` | No | Model for haiku/fast requests | `gpt-5-2` |
 
 ### Important Notes
