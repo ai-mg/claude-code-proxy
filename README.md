@@ -36,6 +36,11 @@ Then reload: `source ~/.zshrc`
 
 ### 2. Configure the proxy
 
+Copy the example environment file:
+```bash
+cp .env.example .env
+```
+
 The `.env` file is pre-configured. It loads `MEINGPT_API_KEY` from your global environment:
 
 ```env
